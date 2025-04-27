@@ -1,0 +1,26 @@
+name: Pact Publish Consumer
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  pact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run tests and generate Pact files
+        run: npm run test
+
+      - name: Publish Pacts
+        run: |
+          npx pact-broker publish pacts \
+            --consumer-app-version=$(git rev-parse --short HEAD) \
+            --branch=main
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
