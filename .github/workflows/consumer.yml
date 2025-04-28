@@ -17,10 +17,7 @@ jobs:
         run: npm run test
 
       - name: Publish Pacts
-        run: |
-          npx @pact-foundation/pact-cli publish pacts \
-            --consumer-app-version=$(git rev-parse --short HEAD) \
-            --branch=main
+        run: npm run publish:pacts
         env:
           PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
           PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}

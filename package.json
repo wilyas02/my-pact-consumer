@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "publish:pacts": "pact-broker publish pacts --consumer-app-version=$(git rev-parse --short HEAD) --branch=main"
   },
   "dependencies": {
     "node-fetch": "^3.3.2",
