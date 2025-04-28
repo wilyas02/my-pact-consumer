@@ -15,19 +15,9 @@ jobs:
       
       - name: Run tests and generate Pact files
         run: npm run test
-        
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          bundler-cache: false
-
-      - name: Install Pact Broker CLI
-        run: gem install pact_broker-client
 
       - name: Publish Pacts
-        run: |
-          pact-broker publish ./pacts --consumer-app-version="$(git rev-parse --short HEAD)" --branch=main
+        run: npm run publish:pacts
         env:
           PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
           PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
