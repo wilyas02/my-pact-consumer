@@ -15,10 +15,15 @@ jobs:
       
       - name: Run tests and generate Pact files
         run: npm run test
+        
+      - name: Setup Pact CLI
+        uses: pact-foundation/setup-pact-cli@v1
+        with:
+          version: '1.88.62' # You can specify a version or use 'latest'
 
       - name: Publish Pacts
         run: |
-          export PACT_BROKER_BASE_URL="${{ secrets.PACT_BROKER_BASE_URL }}"
-          export PACT_BROKER_TOKEN="${{ secrets.PACT_BROKER_TOKEN }}"
-          export PACT_CONSUMER_VERSION="$(git rev-parse --short HEAD)"
-          npx pact-broker@latest publish ./pacts --consumer-app-version="$PACT_CONSUMER_VERSION" --branch=main
+          pact-broker publish ./pacts --consumer-app-version="$(git rev-parse --short HEAD)" --branch=main
+        env:
+          PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+          PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
