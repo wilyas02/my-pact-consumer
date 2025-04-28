@@ -16,10 +16,14 @@ jobs:
       - name: Run tests and generate Pact files
         run: npm run test
         
-      - name: Setup Pact CLI
-        uses: pact-foundation/setup-pact-cli@v1
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          version: '1.88.62' # You can specify a version or use 'latest'
+          ruby-version: '3.0'
+          bundler-cache: false
+
+      - name: Install Pact Broker CLI
+        run: gem install pact_broker-client
 
       - name: Publish Pacts
         run: |
