@@ -18,7 +18,7 @@ jobs:
 
       - name: Publish Pacts
         run: |
-          npx pact-broker publish pacts \
+          npx @pact-foundation/pact-cli publish pacts \
             --consumer-app-version=$(git rev-parse --short HEAD) \
             --branch=main
         env:
