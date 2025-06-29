@@ -28,7 +28,7 @@ describe('Pact with User Service', () => {
                 willRespondWith: {
                     status: 200,
                     headers: { 'Content-Type': 'application/json' },
-                    body: { id: 1, age: "30" },
+                    body: { id: 1, age: "8" },
                 },
             });
         });
@@ -38,7 +38,7 @@ describe('Pact with User Service', () => {
             const data = await response.json();
 
             expect(response.status).toEqual(200);
-            expect(data).toEqual({ id: 1, age: "30" });
+            expect(data).toEqual({ id: 1, age: "8" });
         });
     });
 });
